@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-var solution = new Solution();
+﻿var solution = new Solution();
 
 PrintAnswer(solution, [[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2);
 PrintAnswer(solution, [[0,0,0],[0,0,0]], 0, 0, 0);
