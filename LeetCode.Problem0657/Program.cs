@@ -2,28 +2,26 @@
 {
     public bool JudgeCircle(string moves)
     {
-        int l = 0, r = 0, u = 0, d = 0;
-
-        for (int i = 0; i < moves.Length; i++)
+        int x = 0, y = 0;
+        foreach (var move in moves)
         {
-            if (moves[i] == 'R')
+            switch (move)
             {
-                r++;
-            }
-            else if (moves[i] == 'L')
-            {
-                l++;
-            }
-            else if (moves[i] == 'U')
-            {
-                u++;
-            }
-            else
-            {
-                d++;
+                case 'U':
+                    y++;
+                    break;
+                case 'D':
+                    y--;
+                    break;
+                case 'L':
+                    x--;
+                    break;
+                case 'R':
+                    x++;
+                    break;
             }
         }
 
-        return l == r && u == d;
-    }
+        return x == 0 && y == 0;
+   }
 }
