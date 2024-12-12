@@ -71,9 +71,9 @@
                         var newRow = current.Row + direction.Row;
                         var newColumn = current.Column + direction.Column;
 
-                        if (newRow < 0 
-                            || newRow >= garden.GetLength(0) 
-                            || newColumn < 0 
+                        if (newRow < 0
+                            || newRow >= garden.GetLength(0)
+                            || newColumn < 0
                             || newColumn >= garden.GetLength(1)
                             || garden[newRow, newColumn] != currentPlant)
                         {
@@ -102,7 +102,7 @@
                             continue;
                         }
 
-                        if (Math.Abs(sides[k].Row - sides[l].Row) + Math.Abs(sides[k].Column - sides[l].Column) == 1 
+                        if (Math.Abs(sides[k].Row - sides[l].Row) + Math.Abs(sides[k].Column - sides[l].Column) == 1
                             && sides[k].Row - sides[k].BorderRow == sides[l].Row - sides[l].BorderRow
                             && sides[k].Column - sides[k].BorderColumn == sides[l].Column - sides[l].BorderColumn)
                         {
@@ -155,7 +155,7 @@
                 _count++;
             }
         }
-        
+
         public (int, int, int, int) Find((int, int, int, int) x)
         {
             if (!_parent.ContainsKey(x))
