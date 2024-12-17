@@ -1,0 +1,22 @@
+0:  bst A        B = A mod 8
+2:  bxl 1        B = B ^ 1
+4:  cdv 6        C = A / 64
+6:  adv 3        A = A / 8
+8:  bxc          B = B xor C
+10: bxl 6        B = B xor 6
+12  out 396218   out B mod 8
+14  jnz 0        if A != 0 then goto 0
+
+-----------
+
+A = 25358015
+
+0:  bst A        B = A mod 8
+2:  bxl 1        B = B ^ 1
+4:  cdv 6        C = A / 64
+6:  adv 3        A = A / 8
+8:  bxc          B = B xor C
+10: bxl 6        B = B xor 6
+12  out 396218   out B mod 8
+
+14  jnz 0        if A != 0 then goto 0
