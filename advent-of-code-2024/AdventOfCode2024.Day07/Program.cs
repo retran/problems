@@ -4,10 +4,10 @@
     {
         try
         {
-            ProcessEquations("input_01.txt", "output_01_01.txt");
-            ProcessEquations("input_02.txt", "output_01_02.txt");
-            ProcessEquations("input_01.txt", "output_02_01.txt", allowConcatenation: true);
-            ProcessEquations("input_02.txt", "output_02_02.txt", allowConcatenation: true);
+            Solve("input_01.txt", "output_01_01.txt");
+            Solve("input_02.txt", "output_01_02.txt");
+            Solve("input_01.txt", "output_02_01.txt", allowConcatenation: true);
+            Solve("input_02.txt", "output_02_02.txt", allowConcatenation: true);
         }
         catch (Exception ex)
         {
@@ -15,9 +15,9 @@
         }
     }
 
-    private static void ProcessEquations(string inputFilePath, string outputFilePath, bool allowConcatenation = false)
+    private static void Solve(string inputFile, string outputFile, bool allowConcatenation = false)
     {
-        var equations = ReadEquations(inputFilePath);
+        var equations = ReadEquations(inputFile);
         long total = 0;
         var cache = new Dictionary<(long[], bool), bool>(new SequenceAndBoolEqualityComparer());
 
@@ -29,7 +29,7 @@
             }
         }
 
-        WriteResult(outputFilePath, total);
+        Files.WriteAllText(outputFile, total.ToString());
     }
 
     private static bool IsEquationSolvable(long targetResult, long[] values, bool allowConcatenation, Dictionary<(long[], bool), bool> cache)
@@ -146,11 +146,6 @@
         }
 
         return lines.ToArray();
-    }
-
-    private static void WriteResult(string outputFilePath, long result)
-    {
-        File.WriteAllText(outputFilePath, result.ToString());
     }
 
     private class SequenceAndBoolEqualityComparer : IEqualityComparer<(long[] Values, bool Flag)>

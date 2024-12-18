@@ -4,10 +4,10 @@
     {
         try
         {
-            ProcessReportsAndCountSafeOnes("input_01.txt", "output_01_01.txt", IsReportSafeWithoutAdjustment);
-            ProcessReportsAndCountSafeOnes("input_01.txt", "output_02_01.txt", IsReportSafeWithOneAdjustment);
-            ProcessReportsAndCountSafeOnes("input_02.txt", "output_01_02.txt", IsReportSafeWithoutAdjustment);
-            ProcessReportsAndCountSafeOnes("input_02.txt", "output_02_02.txt", IsReportSafeWithOneAdjustment);
+            Solve("input_01.txt", "output_01_01.txt", IsReportSafeWithoutAdjustment);
+            Solve("input_01.txt", "output_02_01.txt", IsReportSafeWithOneAdjustment);
+            Solve("input_02.txt", "output_01_02.txt", IsReportSafeWithoutAdjustment);
+            Solve("input_02.txt", "output_02_02.txt", IsReportSafeWithOneAdjustment);
         }
         catch (Exception ex)
         {
@@ -83,41 +83,30 @@
         return false;
     }
 
-    private static void ProcessReportsAndCountSafeOnes(string inputFileName, string outputFileName, Func<int[], bool> isReportSafeFunc)
+    private static void Solve(string inputFileName, string outputFileName, Func<int[], bool> isReportSafeFunc)
     {
         int safeReportsCount = 0;
-
-        try
+        using (var reader = new StreamReader(inputFileName))
         {
-            using (var reader = new StreamReader(inputFileName))
+            while (!reader.EndOfStream)
             {
-                while (!reader.EndOfStream)
+                string? line = reader.ReadLine();
+                if (string.IsNullOrWhiteSpace(line))
                 {
-                    string? line = reader.ReadLine();
-                    if (string.IsNullOrWhiteSpace(line))
-                    {
-                        continue;
-                    }
+                    continue;
+                }
 
-                    var report = line.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                                     .Select(int.Parse)
-                                     .ToArray();
+                var report = line.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                                 .Select(int.Parse)
+                                 .ToArray();
 
-                    if (isReportSafeFunc(report))
-                    {
-                        safeReportsCount++;
-                    }
+                if (isReportSafeFunc(report))
+                {
+                    safeReportsCount++;
                 }
             }
+        }
 
-            using (var writer = new StreamWriter(outputFileName))
-            {
-                writer.WriteLine(safeReportsCount);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred while processing the file '{inputFileName}': {ex.Message}");
-        }
+        File.WriteAllText(outputFile, safeReportsCount.ToString());
     }
 }
