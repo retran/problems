@@ -4,10 +4,10 @@
     {
         try
         {
-            ProcessFile("input_01.txt", "output_01_01.txt", "XMAS");
-            ProcessFile("input_01.txt", "output_02_01.txt", "MAS", true);
-            ProcessFile("input_02.txt", "output_01_02.txt", "XMAS");
-            ProcessFile("input_02.txt", "output_02_02.txt", "MAS", true);
+            Solve("input_01.txt", "output_01_01.txt", "XMAS");
+            Solve("input_01.txt", "output_02_01.txt", "MAS", true);
+            Solve("input_02.txt", "output_01_02.txt", "XMAS");
+            Solve("input_02.txt", "output_02_02.txt", "MAS", true);
         }
         catch (Exception ex)
         {
@@ -15,25 +15,18 @@
         }
     }
 
-    private static void ProcessFile(string inputFileName, string outputFileName, string word, bool crossSearch = false)
+    private static void Solve(string inputFile, string outputFile, string word, bool crossSearch = false)
     {
-        try
-        {
-            var matrix = ReadInput(inputFileName);
-            int count = crossSearch ? CountCrossOccurrences(matrix, word) : CountWordOccurrences(matrix, word);
-            WriteOutput(outputFileName, count);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred while processing the file '{inputFileName}': {ex.Message}");
-        }
+        var matrix = ReadInput(inputFile);
+        int count = crossSearch ? CountCrossOccurrences(matrix, word) : CountWordOccurrences(matrix, word);
+        Files.WriteAllText(outputFile, count.ToString());
     }
 
-    private static char[][] ReadInput(string inputFileName)
+    private static char[][] ReadInput(string inputFile)
     {
         var lines = new List<char[]>();
 
-        using (var reader = new StreamReader(inputFileName))
+        using (var reader = new StreamReader(inputFile))
         {
             while (!reader.EndOfStream)
             {
@@ -48,14 +41,6 @@
         }
 
         return lines.ToArray();
-    }
-
-    private static void WriteOutput(string outputFileName, int count)
-    {
-        using (var writer = new StreamWriter(outputFileName))
-        {
-            writer.WriteLine(count);
-        }
     }
 
     private static int CountWordOccurrences(char[][] matrix, string word)

@@ -4,10 +4,10 @@
     {
         try
         {
-            ProcessFile("input_01.txt", "output_01_01.txt", countValid: true);
-            ProcessFile("input_01.txt", "output_02_01.txt", countValid: false);
-            ProcessFile("input_02.txt", "output_01_02.txt", countValid: true);
-            ProcessFile("input_02.txt", "output_02_02.txt", countValid: false);
+            Solve("input_01.txt", "output_01_01.txt", countValid: true);
+            Solve("input_01.txt", "output_02_01.txt", countValid: false);
+            Solve("input_02.txt", "output_01_02.txt", countValid: true);
+            Solve("input_02.txt", "output_02_02.txt", countValid: false);
         }
         catch (Exception ex)
         {
@@ -15,38 +15,31 @@
         }
     }
 
-    private static void ProcessFile(string inputFileName, string outputFileName, bool countValid)
+    private static void Solve(string inputFile, string outputFile, bool countValid)
     {
-        try
-        {
-            int totalSum = 0;
-            var (rules, updates) = ReadInput(inputFileName);
+        int totalSum = 0;
+        var (rules, updates) = ReadInput(inputFile);
 
-            foreach (var update in updates)
+        foreach (var update in updates)
+        {
+            if (IsUpdateValid(rules, update))
             {
-                if (IsUpdateValid(rules, update))
+                if (countValid)
                 {
-                    if (countValid)
-                    {
-                        totalSum += update[update.Length / 2];
-                    }
-                }
-                else
-                {
-                    if (!countValid)
-                    {
-                        var orderedUpdate = TopologicalSort(rules, update);
-                        totalSum += orderedUpdate[orderedUpdate.Length / 2];
-                    }
+                    totalSum += update[update.Length / 2];
                 }
             }
+            else
+            {
+                if (!countValid)
+                {
+                    var orderedUpdate = TopologicalSort(rules, update);
+                    totalSum += orderedUpdate[orderedUpdate.Length / 2];
+                }
+            }
+        }
 
-            WriteOutput(outputFileName, totalSum);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred while processing the file '{inputFileName}': {ex.Message}");
-        }
+        Files.WriteAllText(outputFile, totalSum.ToString());
     }
 
     private static int[] TopologicalSort(IDictionary<int, ISet<int>> rules, int[] update)
@@ -145,9 +138,9 @@
         return true;
     }
 
-    private static (IDictionary<int, ISet<int>> Rules, int[][] Updates) ReadInput(string inputFileName)
+    private static (IDictionary<int, ISet<int>> Rules, int[][] Updates) ReadInput(string inputFile)
     {
-        using var reader = new StreamReader(inputFileName);
+        using var reader = new StreamReader(inputFile);
         var rules = ReadOrderingRules(reader);
         var updates = ReadUpdates(reader);
         return (rules, updates);
@@ -202,11 +195,5 @@
             updates.Add(update);
         }
         return updates.ToArray();
-    }
-
-    private static void WriteOutput(string outputFileName, int totalSum)
-    {
-        using var writer = new StreamWriter(outputFileName);
-        writer.WriteLine(totalSum);
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 internal class Program
 {
-    private static readonly (int Row, int Column)[] Directions = 
+    private static readonly (int Row, int Column)[] Directions =
     {
         (-1, 0),
         (0, 1),
@@ -17,8 +17,8 @@ internal class Program
     {
         try
         {
-            ProcessFiles("input_01.txt", "output_01_01.txt", "output_02_01.txt");
-            ProcessFiles("input_02.txt", "output_01_02.txt", "output_02_02.txt");
+            Solve("input_01.txt", "output_01_01.txt", "output_02_01.txt");
+            Solve("input_02.txt", "output_01_02.txt", "output_02_02.txt");
         }
         catch (Exception ex)
         {
@@ -26,74 +26,63 @@ internal class Program
         }
     }
 
-    private static void ProcessFiles(string inputFile, string distinctPositionsOutput, string loopsOutput)
+    private static void Solve(string inputFile, string outputFileForPart1, string outputFileForPart2)
     {
-        CountDistinctPositions(inputFile, distinctPositionsOutput);
-        CountPossibleLoops(inputFile, loopsOutput);
+        var (grid, startPosition) = ReadInput(inputFile);
+
+        var distinctPositions = CountDistinctPositions(grid, startPosition);
+        Files.WriteAllText(outputFileForPart1, distinctPositions.ToString());
+
+        var possibleLoops = CountPossibleLoops(grid, startPosition);
+        Files.WriteAllText(outputFileForPart2, possibleLoops.ToString());
     }
 
-    private static void CountDistinctPositions(string inputFileName, string outputFileName)
+    private static long CountDistinctPositions(char[,] grid, (int Row, int Column) startPosition)
     {
-        try
+        var visited = new HashSet<(int Row, int Column)>();
+        var currentDirection = Directions[0];
+        var position = startPosition;
+
+        while (IsWithinGrid(grid, position))
         {
-            var (grid, startPosition) = ReadInput(inputFileName);
-            var visited = new HashSet<(int Row, int Column)>();
-            var currentDirection = Directions[0];
-            var position = startPosition;
+            visited.Add(position);
+            var nextPosition = (Row: position.Row + currentDirection.Row, Column: position.Column + currentDirection.Column);
 
-            while (IsWithinGrid(grid, position))
+            if (IsWithinGrid(grid, nextPosition) && grid[nextPosition.Row, nextPosition.Column] == '#')
             {
-                visited.Add(position);
-                var nextPosition = (Row: position.Row + currentDirection.Row, Column: position.Column + currentDirection.Column);
-
-                if (IsWithinGrid(grid, nextPosition) && grid[nextPosition.Row, nextPosition.Column] == '#')
-                {
-                    currentDirection = TurnRight(currentDirection);
-                }
-                else
-                {
-                    position = nextPosition;
-                }
+                currentDirection = TurnRight(currentDirection);
             }
+            else
+            {
+                position = nextPosition;
+            }
+        }
 
-            WriteOutput(outputFileName, visited.Count);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error processing file '{inputFileName}': {ex.Message}");
-        }
+        return visited.Count;
     }
 
-    private static void CountPossibleLoops(string inputFileName, string outputFileName)
+    private static void CountPossibleLoops(char[,] grid, (int Row, int Column) startPosition)
     {
-        try
-        {
-            var (originalGrid, startPosition) = ReadInput(inputFileName);
-            var gridCopy = (char[,])originalGrid.Clone();
-            int loopsCount = 0;
+        var gridCopy = (char[,])originalGrid.Clone();
+        int loopsCount = 0;
 
-            for (int i = 0; i < gridCopy.GetLength(0); i++)
+        for (int i = 0; i < gridCopy.GetLength(0); i++)
+        {
+            for (int j = 0; j < gridCopy.GetLength(1); j++)
             {
-                for (int j = 0; j < gridCopy.GetLength(1); j++)
+                if (gridCopy[i, j] == '.')
                 {
-                    if (gridCopy[i, j] == '.')
+                    gridCopy[i, j] = '#';
+                    if (IsLoop(gridCopy, startPosition))
                     {
-                        gridCopy[i, j] = '#';
-                        if (IsLoop(gridCopy, startPosition))
-                        {
-                            loopsCount++;
-                        }
-                        gridCopy[i, j] = '.';
+                        loopsCount++;
                     }
+                    gridCopy[i, j] = '.';
                 }
             }
+        }
 
-            WriteOutput(outputFileName, loopsCount);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error processing file '{inputFileName}': {ex.Message}");
-        }
+        return loopsCount;
     }
 
     private static bool IsLoop(char[,] grid, (int Row, int Column) start)
@@ -158,10 +147,5 @@ internal class Program
         }
 
         return (grid, startPosition);
-    }
-
-    private static void WriteOutput(string outputFileName, int value)
-    {
-        File.WriteAllText(outputFileName, value.ToString());
     }
 }
