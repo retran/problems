@@ -27,7 +27,7 @@ internal class Program
 
     private record Problem(Vector ButtonA, Vector ButtonB, Vector Target);
 
-    private static void ProcessInputAndWriteOutput(string inputFilePath, string outputFilePathForPart1, string outputFilePathForPart2)
+    private static void Solve(string inputFilePath, string outputFilePathForPart1, string outputFilePathForPart2)
     {
         if (string.IsNullOrWhiteSpace(inputFilePath) ||
             string.IsNullOrWhiteSpace(outputFilePathForPart1) ||
@@ -58,12 +58,12 @@ internal class Program
             {problem.ButtonA.Y, problem.ButtonB.Y, -adjustedTarget.Y}
         };
 
-        var result = Solve(matrix);
+        var result = SolveMatrix(matrix);
 
         return result != null ? result[0] * 3 + result[1] : 0;
     }
 
-    private static long[]? Solve(long[,] matrix)
+    private static long[]? SolveMatrix(long[,] matrix)
     {
         long determinant = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
 

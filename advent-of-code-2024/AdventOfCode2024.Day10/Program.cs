@@ -4,8 +4,8 @@
     {
         try
         {
-            ProcessInputAndWriteOutput("input_01.txt", "output_01_01.txt", "output_02_01.txt");
-            ProcessInputAndWriteOutput("input_02.txt", "output_01_02.txt", "output_02_02.txt");
+            Solve("input_01.txt", "output_01_01.txt", "output_02_01.txt");
+            Solve("input_02.txt", "output_01_02.txt", "output_02_02.txt");
         }
         catch (Exception ex)
         {
@@ -14,12 +14,12 @@
         }
     }
 
-    private static readonly (int Row, int Column)[] _directions =
+    private static readonly (int Row, int Column)[] Directions =
     {
         (-1, 0), (1, 0), (0, -1), (0, 1)
     };
 
-    private static void ProcessInputAndWriteOutput(string inputFilePath, string outputFilePathForPart1, string outputFilePathForPart2)
+    private static void Solve(string inputFilePath, string outputFilePathForPart1, string outputFilePathForPart2)
     {
         if (string.IsNullOrWhiteSpace(inputFilePath) ||
             string.IsNullOrWhiteSpace(outputFilePathForPart1) ||
@@ -28,7 +28,7 @@
             throw new ArgumentException("Input or output file paths cannot be null or empty.");
         }
 
-        int[,] heightmap = ReadHeightmap(inputFilePath);
+        int[,] heightmap = ReadInput(inputFilePath);
 
         var (reachablePeaks, distinctTrails) = Count(heightmap);
 
@@ -67,7 +67,7 @@
         {
             foreach (var (row, column) in queues[current])
             {
-                foreach (var (rowDiff, columnDiff) in _directions)
+                foreach (var (rowDiff, columnDiff) in Directions)
                 {
                     int newRow = row + rowDiff;
                     int newColumn = column + columnDiff;
@@ -115,7 +115,7 @@
         return (totalReachablePeaks, totalDistinctTrails);
     }
 
-    private static int[,] ReadHeightmap(string inputFilePath)
+    private static int[,] ReadInput(string inputFilePath)
     {
         if (!File.Exists(inputFilePath))
         {
