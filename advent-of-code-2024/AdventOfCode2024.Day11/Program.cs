@@ -4,10 +4,10 @@
     {
         try
         {
-            ProcessInputAndWriteOutput("input_01.txt", "output_01_01.txt", 25);
-            ProcessInputAndWriteOutput("input_02.txt", "output_01_02.txt", 25);
-            ProcessInputAndWriteOutput("input_01.txt", "output_02_01.txt", 75);
-            ProcessInputAndWriteOutput("input_02.txt", "output_02_02.txt", 75);
+            Solve("input_01.txt", "output_01_01.txt", 25);
+            Solve("input_02.txt", "output_01_02.txt", 25);
+            Solve("input_01.txt", "output_02_01.txt", 75);
+            Solve("input_02.txt", "output_02_02.txt", 75);
         }
         catch (Exception ex)
         {
@@ -15,7 +15,7 @@
         }
     }
 
-    private static void ProcessInputAndWriteOutput(string inputFilePath, string outputFilePath, int blinks)
+    private static void Solve(string inputFilePath, string outputFilePath, int blinks)
     {
         if (string.IsNullOrWhiteSpace(inputFilePath) || string.IsNullOrWhiteSpace(outputFilePath))
         {

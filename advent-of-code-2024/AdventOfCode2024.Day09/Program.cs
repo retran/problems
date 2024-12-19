@@ -12,10 +12,10 @@ internal class Program
     {
         try
         {
-            ProcessInputAndWriteOutput("input_01.txt", "output_01_01.txt", false);
-            ProcessInputAndWriteOutput("input_02.txt", "output_01_02.txt", false);
-            ProcessInputAndWriteOutput("input_01.txt", "output_02_01.txt", true);
-            ProcessInputAndWriteOutput("input_02.txt", "output_02_02.txt", true);
+            Solve("input_01.txt", "output_01_01.txt", false);
+            Solve("input_02.txt", "output_01_02.txt", false);
+            Solve("input_01.txt", "output_02_01.txt", true);
+            Solve("input_02.txt", "output_02_02.txt", true);
         }
         catch (Exception ex)
         {
@@ -23,7 +23,7 @@ internal class Program
         }
     }
 
-    private static void ProcessInputAndWriteOutput(string inputFilePath, string outputFilePath, bool useWholeFileCompaction)
+    private static void Solve(string inputFilePath, string outputFilePath, bool useWholeFileCompaction)
     {
         if (string.IsNullOrWhiteSpace(inputFilePath))
             throw new ArgumentException("Input file path cannot be null or empty.");
@@ -42,7 +42,7 @@ internal class Program
             CompactFiles(unpacked, ids);
 
         long checksum = ComputeChecksum(unpacked, ids);
-        WriteResult(outputFilePath, checksum);
+        File.WriteAllText(outputFilePath, checksum.ToString());
     }
 
     private static string ReadInput(string inputFilePath)
@@ -193,10 +193,5 @@ internal class Program
             }
         }
         return checksum;
-    }
-
-    private static void WriteResult(string outputFilePath, long output)
-    {
-        File.WriteAllText(outputFilePath, output.ToString());
     }
 }

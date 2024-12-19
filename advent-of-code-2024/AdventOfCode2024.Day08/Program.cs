@@ -15,14 +15,16 @@
         }
     }
 
+    private record Problem(int Rows, int Columns, IDictionary<char, IList<(int Row, int Column)>> FrequencyMap)
+
     private static void ProcessInputAndWriteOutput(string inputFilePath, string outputFilePath, bool countWithHarmonics)
     {
-        var (rows, columns, frequencyMap) = ReadInput(inputFilePath);
+        var problem = ReadInput(inputFilePath);
         var count = countWithHarmonics
-            ? CountAntinodesWithHarmonics(rows, columns, frequencyMap)
-            : CountAntinodes(rows, columns, frequencyMap);
+            ? CountAntinodesWithHarmonics(problem.Rows, problem.Columns, problem.FrequencyMap)
+            : CountAntinodes((problem.Rows, problem.Columns, problem.FrequencyMap);
 
-        WriteResult(outputFilePath, count);
+        Files.WriteAllText(outputFile, count.ToString());
     }
 
     private static long CountAntinodes(int rows, int columns, IDictionary<char, IList<(int Row, int Column)>> frequencyMap)
@@ -86,7 +88,7 @@
         }
     }
 
-    private static (int Rows, int Columns, IDictionary<char, IList<(int Row, int Column)>> FrequencyMap) ReadInput(string inputFilePath)
+    private static Problem ReadInput(string inputFilePath)
     {
         if (!File.Exists(inputFilePath))
             throw new FileNotFoundException($"Input file not found: {inputFilePath}");
@@ -118,11 +120,6 @@
         }
 
         return (rows, columns, frequencyMap);
-    }
-
-    private static void WriteResult(string outputFilePath, long result)
-    {
-        File.WriteAllText(outputFilePath, result.ToString());
     }
 
     private static bool IsWithinBounds((int Row, int Column) coord, int rows, int columns)
