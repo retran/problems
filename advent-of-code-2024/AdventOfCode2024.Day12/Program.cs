@@ -4,12 +4,12 @@
     {
         try
         {
-            ProcessInputAndWriteOutput("input_01.txt", "output_01_01.txt", "output_02_01.txt");
-            ProcessInputAndWriteOutput("input_02.txt", "output_01_02.txt", "output_02_02.txt");
-            ProcessInputAndWriteOutput("input_03.txt", "output_01_03.txt", "output_02_03.txt");
-            ProcessInputAndWriteOutput("input_04.txt", "output_01_04.txt", "output_02_04.txt");
-            ProcessInputAndWriteOutput("input_05.txt", "output_01_05.txt", "output_02_05.txt");
-            ProcessInputAndWriteOutput("input_06.txt", "output_01_06.txt", "output_02_06.txt");
+            Solve("input_01.txt", "output_01_01.txt", "output_02_01.txt");
+            Solve("input_02.txt", "output_01_02.txt", "output_02_02.txt");
+            Solve("input_03.txt", "output_01_03.txt", "output_02_03.txt");
+            Solve("input_04.txt", "output_01_04.txt", "output_02_04.txt");
+            Solve("input_05.txt", "output_01_05.txt", "output_02_05.txt");
+            Solve("input_06.txt", "output_01_06.txt", "output_02_06.txt");
         }
         catch (Exception ex)
         {
@@ -19,7 +19,7 @@
 
     private static readonly (int Row, int Column)[] _directions = [(0, 1), (1, 0), (0, -1), (-1, 0)];
 
-    private static void ProcessInputAndWriteOutput(string inputFilePath, string outputFilePathForPart1, string outputFilePathForPart2)
+    private static void Solve(string inputFilePath, string outputFilePathForPart1, string outputFilePathForPart2)
     {
         if (string.IsNullOrWhiteSpace(inputFilePath)
             || string.IsNullOrWhiteSpace(outputFilePathForPart1)

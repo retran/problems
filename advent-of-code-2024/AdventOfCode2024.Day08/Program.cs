@@ -4,10 +4,10 @@
     {
         try
         {
-            ProcessInputAndWriteOutput("input_01.txt", "output_01_01.txt", countWithHarmonics: false);
-            ProcessInputAndWriteOutput("input_02.txt", "output_01_02.txt", countWithHarmonics: false);
-            ProcessInputAndWriteOutput("input_01.txt", "output_02_01.txt", countWithHarmonics: true);
-            ProcessInputAndWriteOutput("input_02.txt", "output_02_02.txt", countWithHarmonics: true);
+            Solve("input_01.txt", "output_01_01.txt", countWithHarmonics: false);
+            Solve("input_02.txt", "output_01_02.txt", countWithHarmonics: false);
+            Solve("input_01.txt", "output_02_01.txt", countWithHarmonics: true);
+            Solve("input_02.txt", "output_02_02.txt", countWithHarmonics: true);
         }
         catch (Exception ex)
         {
@@ -17,7 +17,7 @@
 
     private record Problem(int Rows, int Columns, IDictionary<char, IList<(int Row, int Column)>> FrequencyMap)
 
-    private static void ProcessInputAndWriteOutput(string inputFilePath, string outputFilePath, bool countWithHarmonics)
+    private static void Solve(string inputFilePath, string outputFilePath, bool countWithHarmonics)
     {
         var problem = ReadInput(inputFilePath);
         var count = countWithHarmonics
