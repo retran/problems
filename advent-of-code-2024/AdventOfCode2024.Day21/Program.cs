@@ -14,12 +14,11 @@
         { '<', 'v', '>' },
     };
 
-    private static Dictionary<(char, char), string[]> NumericKeypadExpander = BuildExpander(NumericKeypad);
-    private static Dictionary<(char, char), string[]> DirectionalKeypadExpander = BuildExpander(DirectionalKeypad);
-
     private static readonly Dictionary<(int, int, char, char), string[]> GeneratedSequenceCache = new();
     private static readonly Dictionary<string, int> SequenceScoreCache = new();
     private static readonly Dictionary<(object, char, char, int), long> SequenceLengthCache = new();
+    private static readonly Dictionary<(char, char), string[]> NumericKeypadExpander = BuildExpander(NumericKeypad);
+    private static readonly Dictionary<(char, char), string[]> DirectionalKeypadExpander = BuildExpander(DirectionalKeypad);
 
     public static void Main(string[] args)
     {
