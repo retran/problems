@@ -7,7 +7,8 @@
             var part1Files = new[]
             {
                 ("input_01.txt", "output_01_01.txt", "output_02_01.txt"),
-                ("input_02.txt", "output_01_02.txt", "output_02_02.txt")
+                ("input_02.txt", "output_01_02.txt", "output_02_02.txt"),
+                ("input_03.txt", "output_01_03.txt", "output_02_03.txt")
             };
 
             foreach (var (inputFile, outputFileForPart1, outputFileForPart2) in part1Files)
