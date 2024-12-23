@@ -13,16 +13,18 @@
  */
 public class Solution
 {
-    public void TraverseAndComputeSum(TreeNode node, int low, int high, ref int sum)
+    private int TraverseAndComputeSum(TreeNode node, int low, int high)
     {
         if (node == null)
         {
-            return;
+            return 0;
         }
+
+        int sum = 0;
 
         if (node.val >= low)
         {
-            TraverseAndComputeSum(node.left, low, high, ref sum);
+            sum += TraverseAndComputeSum(node.left, low, high);
         }
 
         if (node.val >= low && node.val <= high)
@@ -32,14 +34,14 @@ public class Solution
 
         if (node.val <= high)
         {
-            TraverseAndComputeSum(node.right, low, high, ref sum);
+            sum += TraverseAndComputeSum(node.right, low, high);
         }
+
+        return sum;
     }
 
     public int RangeSumBST(TreeNode root, int low, int high)
     {
-        int sum = 0;
-        TraverseAndComputeSum(root, low, high, ref sum);
-        return sum;
+        return TraverseAndComputeSum(root, low, high);
     }
 }
