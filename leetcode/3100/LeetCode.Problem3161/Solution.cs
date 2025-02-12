@@ -20,7 +20,7 @@ public class Solution
         {
             From = from;
             To = to;
-            MaxSize = from - to;
+            MaxSize = to - from;
         }
 
         public void UpdateSize()
