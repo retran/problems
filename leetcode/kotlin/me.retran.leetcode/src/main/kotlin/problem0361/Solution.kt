@@ -14,7 +14,7 @@ class Solution {
 
         for (i in 0..rows - 1) {
             for (j in 0..columns - 1) {
-                var enemiesInColumn = 0;
+                var enemiesInColumn = 0
                 if (i == 0 || grid[i - 1][j] == 'W') {
                     for (k in i..rows - 1) {
                         if (grid[k][j] == 'E') {
@@ -29,7 +29,7 @@ class Solution {
                     enemiesInColumn = dp[i - 1][j]!!.enemiesInColumn
                 }
 
-                var enemiesInRow = 0;
+                var enemiesInRow = 0
                 if (j == 0 || grid[i][j - 1] == 'W') {
                     for (k in j..columns - 1) {
                         if (grid[i][k] == 'E') {

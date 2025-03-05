@@ -8,7 +8,7 @@ class Node(var `val`: Boolean, var isLeaf: Boolean) {
 }
 
 class Solution {
-    fun constructImpl(grid:Array<IntArray>, rowStart: Int, rowEnd: Int, columnStart: Int, columnEnd:Int): Node? {
+    fun constructImpl(grid:Array<IntArray>, rowStart: Int, rowEnd: Int, columnStart: Int, columnEnd:Int): Node {
         if (rowStart == rowEnd && columnStart == columnEnd) {
             return Node(grid[rowStart][columnStart] == 1, true)
         }
@@ -16,10 +16,10 @@ class Solution {
         val rowMid = rowStart + (rowEnd - rowStart) / 2
         val columnMid = columnStart + (columnEnd - columnStart) / 2
 
-        val topLeft = constructImpl(grid, rowStart, rowMid, columnStart, columnMid)!!
-        val topRight = constructImpl(grid, rowStart, rowMid, columnMid + 1, columnEnd)!!
-        val bottomLeft = constructImpl(grid, rowMid + 1, rowEnd, columnStart, columnMid)!!
-        val bottomRight = constructImpl(grid, rowMid + 1, rowEnd, columnMid + 1, columnEnd)!!
+        val topLeft = constructImpl(grid, rowStart, rowMid, columnStart, columnMid)
+        val topRight = constructImpl(grid, rowStart, rowMid, columnMid + 1, columnEnd)
+        val bottomLeft = constructImpl(grid, rowMid + 1, rowEnd, columnStart, columnMid)
+        val bottomRight = constructImpl(grid, rowMid + 1, rowEnd, columnMid + 1, columnEnd)
 
         if (topLeft.isLeaf
             && topRight.isLeaf
@@ -40,7 +40,7 @@ class Solution {
         return node
     }
 
-    fun construct(grid: Array<IntArray>): Node? {
+    fun construct(grid: Array<IntArray>): Node {
         val rows = grid.size
         val columns = grid[0].size
 

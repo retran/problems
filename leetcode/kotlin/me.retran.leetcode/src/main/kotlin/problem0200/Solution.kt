@@ -54,7 +54,7 @@ class Solution {
         fun getKey(row: Int, column: Int): Int =
             row * columns + column + 1
 
-        val waterKey = 0;
+        val waterKey = 0
 
         val dsu = DisjointSetUnion(rows * columns + 1)
 
@@ -76,7 +76,7 @@ class Solution {
             }
         }
 
-        return dsu.count - 1;
+        return dsu.count - 1
     }
 }
 

@@ -2,10 +2,10 @@ package problem0295
 
 import java.util.PriorityQueue
 
-class MedianFinder() {
+class MedianFinder {
     private val minHeap = PriorityQueue<Int>()
     private val maxHeap = PriorityQueue<Int>(Comparator.reverseOrder())
-    private var count = 0;
+    private var count = 0
 
     fun addNum(num: Int) {
         if (count == 0 || maxHeap.peek() >= num) {

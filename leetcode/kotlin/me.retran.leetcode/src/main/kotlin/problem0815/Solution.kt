@@ -53,7 +53,7 @@ class Solution {
         val routeToStops = routes
             .map { it.toSet() }
 
-        val graph = Array<MutableSet<Int>>(routes.size + 2) { mutableSetOf() };
+        val graph = Array<MutableSet<Int>>(routes.size + 2) { mutableSetOf() }
         for (i in 0..routeToStops.lastIndex) {
             if (routeToStops[i].contains(source)) {
                 graph[i + 2].add(sourceId)

@@ -4,7 +4,7 @@ class Solution {
     fun fullJustify(words: Array<String>, maxWidth: Int): List<String> {
         val justifiedLines = ArrayList<String>()
 
-        var charactersInCurrentLine = 0;
+        var charactersInCurrentLine = 0
         var currentLine = ArrayList<String>()
 
         for (word in words) {

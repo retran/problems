@@ -113,8 +113,7 @@ class Solution {
         }
 
         private fun evaluateFactor(): Int {
-            val token = lexer.peek()
-            return when (token) {
+            return when (val token = lexer.peek()) {
                 is Token.NumberToken -> {
                     lexer.next()
                     token.value

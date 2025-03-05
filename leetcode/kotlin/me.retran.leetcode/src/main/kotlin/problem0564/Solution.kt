@@ -4,7 +4,7 @@ import kotlin.math.abs
 
 class Solution {
     fun makePalindrome(word: String): String {
-        var left = 0;
+        var left = 0
         var right = word.lastIndex
 
         var palindrome = word.toCharArray()
