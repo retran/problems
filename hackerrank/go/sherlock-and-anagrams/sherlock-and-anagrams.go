@@ -12,7 +12,15 @@ import (
 type FrequencyMap map[rune]int
 
 func equals(a, b FrequencyMap) bool {
-
+	if len(a) != len(b) {
+		return false
+	}
+	for key, value := range a {
+		if b[key] != value {
+			return false
+		}
+	}
+	return true
 }
 
 var cache map[string]FrequencyMap = make(map[string]FrequencyMap)
