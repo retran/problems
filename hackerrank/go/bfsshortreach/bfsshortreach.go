@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"container/list"
 	"fmt"
 	"io"
 	"os"
@@ -10,14 +11,14 @@ import (
 )
 
 /*
- * Complete the 'bfs' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts following parameters:
- *  1. INTEGER n
- *  2. INTEGER m
- *  3. 2D_INTEGER_ARRAY edges
- *  4. INTEGER s
+* Complete the 'bfs' function below.
+*
+* The function is expected to return an INTEGER_ARRAY.
+* The function accepts following parameters:
+*  1. INTEGER n
+*  2. INTEGER m
+*  3. 2D_INTEGER_ARRAY edges
+*  4. INTEGER s
  */
 func bfs(n int32, m int32, edges [][]int32, s int32) []int32 {
 	graph := make(map[int32][]int32)
@@ -35,16 +36,16 @@ func bfs(n int32, m int32, edges [][]int32, s int32) []int32 {
 		graph[to] = append(graph[to], from)
 	}
 
-	queue := make([]int32, 0, n)
+	queue := list.New()
 	visited := make(map[int32]bool)
 
-	queue = append(queue, s)
+	queue.PushBack(s)
 	distance := 0
 
-	for len(queue) > 0 {
-		for count := len(queue); count > 0; count-- {
-			current := queue[0]
-			queue = queue[1:]
+	for queue.Len() > 0 {
+		for count := queue.Len(); count > 0; count-- {
+			current := queue.Front().Value.(int32)
+			queue.Remove(queue.Front())
 
 			if visited[current] {
 				continue
@@ -55,7 +56,7 @@ func bfs(n int32, m int32, edges [][]int32, s int32) []int32 {
 
 			for _, node := range graph[current] {
 				if !visited[node] {
-					queue = append(queue, node)
+					queue.PushBack(node)
 				}
 			}
 		}
