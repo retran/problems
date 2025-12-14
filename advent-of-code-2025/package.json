@@ -1,0 +1,14 @@
+{
+  "name": "advent-of-code-2025",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "devDependencies": {
+    "typescript": "^5.x.x",
+    "vitest": "^1.x.x",
+    "ts-node": "^10.x.x",
+    "@types/node": "^20.x.x"
+  }
+}
