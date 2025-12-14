@@ -10,5 +10,10 @@
     "vitest": "^1.x.x",
     "ts-node": "^10.x.x",
     "@types/node": "^20.x.x"
+  },
+  "scripts": {
+    "gen": "ts-node scripts/generate.ts",
+    "test": "vitest",
+    "solve": "ts-node"
   }
 }
